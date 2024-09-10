@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "BudCommon",
+    platforms: [.iOS(.v13)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
@@ -12,7 +13,6 @@ let package = Package(
             targets: ["BudCommon", "Kit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", exact: "1.13.1"),
         .package(url: "https://github.com/SwifterSwift/SwifterSwift.git", exact: "6.0.0"),
         .package(url: "https://github.com/apple/swift-log.git", exact: "1.0.0"),
         .package(url: "https://github.com/Moya/Moya.git", exact: "15.0.0"),
@@ -31,48 +31,19 @@ let package = Package(
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "BudCommon", dependencies: [
-                .tac,
-                .swifter,
-                .logging,
-                .promise,
-                .moya,
-                .toast,
-                .hud,
-                .crypto,
-                .rsa,
-                .refresh,
-                .theme,
-                .snap,
-                .fisher,
-                .phone]),
+            name: "BudCommon",
+            dependencies: [.swifter, .logging, .promise, .moya, .toast, .hud, .crypto, .rsa, .refresh, .theme, .snap, .fisher, .phone]),
         .binaryTarget(name: "Kit", path: "Kit.xcframework"),
         .testTarget(
             name: "BudCommonTests",
-            dependencies: [
-                "BudCommon",
-                .tac,
-                .swifter,
-                .logging,
-                .promise,
-                .moya,
-                .toast,
-                .hud,
-                .crypto,
-                .rsa,
-                .refresh,
-                .theme,
-                .snap,
-                .fisher,
-                .phone,
-            ]),
+            dependencies: ["BudCommon", .swifter, .logging, .promise, .moya, .toast, .hud, .crypto, .rsa, .refresh, .theme, .snap, .fisher, .phone]),
     ])
 
 extension Target.Dependency {
-    static let tac = Self.product(name: "ComposableArchitecture", package: "swift-composable-architecture")
     static let swifter = Self.product(name: "SwifterSwift", package: "SwifterSwift")
     static let logging = Self.product(name: "Logging", package: "swift-log")
     static let promise = Self.product(name: "PromiseKit", package: "PromiseKit")
+    static let af = Self.product(name: "Alamofire", package: "Alamofire")
     static let moya = Self.product(name: "Moya", package: "Moya")
     static let toast = Self.product(name: "Toast", package: "Toast-Swift")
     static let hud = Self.product(name: "ProgressHUD", package: "ProgressHUD")
