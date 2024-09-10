@@ -1,0 +1,8 @@
+framework module "Kit" {
+	header "ref.h"
+    header "Kit.objc.h"
+    header "Universe.objc.h"
+    header "Kit.h"
+
+    export *
+}
