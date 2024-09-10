@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import UIKit
 import SwiftTheme
+import UIKit
 
 private let lastThemeIndexKey = "lastedThemeIndex"
 private let defaults = UserDefaults.standard

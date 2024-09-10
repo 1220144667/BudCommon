@@ -11,13 +11,13 @@ import UIKit
 public class BaseViewController<Container: UIView>: UIViewController, RequestExpiresable {
     
     // ----------- 容器View -----------
-    var container: Container { view as! Container }
+    public var container: Container { view as! Container }
 
     // ----------- 是否隐藏NavigationBar -----------
-    var hidenNavigationBar = false
+    public var hidenNavigationBar = false
 
     // ----------- 返回事件闭包、如果实现此闭包则需要手动调用pop函数 -----------
-    var backClosure: (() -> Void)?
+    public var backClosure: (() -> Void)?
 
     public override func loadView() {
         super.loadView()
@@ -58,7 +58,7 @@ public class BaseViewController<Container: UIView>: UIViewController, RequestExp
     }
 
     // ----------- 加载数据 -----------
-    func loadData() {}
+    public func loadData() {}
 
     // ----------- view点击事件 -----------
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -68,7 +68,7 @@ public class BaseViewController<Container: UIView>: UIViewController, RequestExp
 
     // ----------- 返回事件、外部可以实现闭包以拦截此事件 -----------
     @objc
-    func backAction() {
+    private func backAction() {
         if let back = backClosure {
             back()
             return
