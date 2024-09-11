@@ -7,8 +7,9 @@
 
 import Foundation
 import CommonCrypto
+import SwifterSwift
 
-extension String {
+public extension String {
     
     /// 添加国际化调佣
     /// - Returns: 返回国际化内容
@@ -88,5 +89,114 @@ extension String {
         var digest = [UInt8](repeating: 0, count: Int(CC_SHA256_DIGEST_LENGTH))
         CC_SHA256(utf8, CC_LONG(utf8!.count - 1), &digest)
         return digest.reduce("") { $0 + String(format:"%02x", $1) }
+    }
+}
+
+public extension String {
+    /// 银行卡格式化
+    var formatBankNumber: String {
+        var number = self
+        let idx = 4
+        if count >= idx {
+            if number.count == idx {
+                number = "****"
+            } else {
+                let textAsNSString = self as NSString
+                let range = NSMakeRange(0, textAsNSString.length - idx)
+
+                var characters = ""
+                for _ in 1 ... range.length {
+                    characters.append("*")
+                }
+
+                number = textAsNSString.replacingCharacters(in: range, with: characters)
+            }
+        }
+
+        return number
+    }
+
+    /// 手机号脱敏
+    var formatPhoneNumber: String {
+        var number = self
+        let idx = 6
+        if count > idx {
+            let textAsNSString = self as NSString
+            let range = NSMakeRange(0, textAsNSString.length - idx)
+
+            var characters = ""
+            for _ in 1 ... range.length {
+                characters.append("*")
+            }
+
+            number = textAsNSString.replacingCharacters(in: range, with: characters)
+        }
+
+        return number
+    }
+
+    /// 货币格式化
+    var numberFormatterByDecimal: String {
+        guard let value = double() else {
+            return ""
+        }
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
+
+        guard let result = formatter.string(from: NSNumber(value: value)) else {
+            return ""
+        }
+
+        return result
+    }
+
+    // MARK: (传入汉字字符串, 返回大写拼音首字母)
+
+    var firstLetterFromString: String {
+        guard count != 0 else {
+            return ""
+        }
+        // 注意,这里一定要转换成可变字符串
+        let mutableString = NSMutableString(string: self)
+        // 将中文转换成带声调的拼音
+        CFStringTransform(mutableString as CFMutableString, nil, kCFStringTransformToLatin, false)
+        // 去掉声调(用此方法大大提高遍历的速度)
+        let pinyinString = mutableString.folding(options: String.CompareOptions.diacriticInsensitive, locale: NSLocale.current)
+        // 将拼音首字母装换成大写
+        let strPinYin = polyphoneStringHandle(nameString: self, pinyinString: pinyinString).uppercased()
+        // 截取大写首字母
+        let firstString = strPinYin.substring(to: strPinYin.index(strPinYin.startIndex, offsetBy: 1))
+        // 判断姓名首位是否为大写字母
+        let regexA = "^[A-Z]$"
+        let predA = NSPredicate(format: "SELF MATCHES %@", regexA)
+        return predA.evaluate(with: firstString) ? firstString : "#"
+        /// 多音字处理
+        func polyphoneStringHandle(nameString: String, pinyinString: String) -> String {
+            if nameString.hasPrefix("长") { return "chang" }
+            if nameString.hasPrefix("沈") { return "shen" }
+            if nameString.hasPrefix("厦") { return "xia" }
+            if nameString.hasPrefix("地") { return "di" }
+            if nameString.hasPrefix("重") { return "chong" }
+
+            return pinyinString
+        }
+    }
+
+    var complexityMatches: Bool {
+        // 1.全部包含：大写、小写、数字、特殊字符；
+        let regex1 = "(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\\W_])^.{6,}$"
+        // 2.无大写：小写、数字、特殊字符；
+        let regex2 = "(?=.*[a-z])(?=.*[0-9])(?=.*[\\W_])^.{6,}$"
+        // 3.无小写：大写、数字、特殊字符；
+        let regex3 = "(?=.*[A-Z])(?=.*[0-9])(?=.*[\\W_])^.{6,}$"
+        // 4.无数字：大写、小写、特殊字符；
+        let regex4 = "(?=.*[A-Z])(?=.*[a-z])(?=.*[\\W_])^.{6,}$"
+        // 5.无特殊字符：大写、小写、数字；
+        let regex5 = "(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])^.{6,}$"
+
+        let regex = "\(regex1)|\(regex2)|\(regex3)|\(regex4)|\(regex5)"
+
+        return matches(pattern: regex)
     }
 }
