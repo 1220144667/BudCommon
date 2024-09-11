@@ -10,6 +10,18 @@ import PromiseKit
 import UIKit
 import Logging
 
+// 打印行...
+func dlog<T>(message: T, file: String = #file, function: String = #function, lineNumber: Int = #line) {
+    if !Bud.isDebug {
+        return
+    }
+    var fileName = (file as NSString).lastPathComponent
+    if fileName.hasSuffix(".swift") {
+        fileName.removeLast(".swift".count)
+    }
+    print("\(fileName).\(function):\(lineNumber)\n\(message)")
+}
+
 public enum Bud {
     /// iMarket: 返回是否是DEBUG模式
     public static var isDebug: Bool {
@@ -19,9 +31,13 @@ public enum Bud {
             return false
         #endif
     }
+    
+    static var keyWindow: UIWindow?
 
     /// 获取国际化文字
-    static var keyWindow: UIWindow?
+    static func localized(_ name: String) -> String {
+        return NSLocalizedString(name, comment: "")
+    }
 
     /// 顶部导航栏高度（包括安全区）
     public static var topBarHeight: CGFloat {
