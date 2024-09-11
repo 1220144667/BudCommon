@@ -64,13 +64,13 @@ public enum BudThemes: Int {
 }
 
 public enum BudColor {
-    static let backgroundColor: ThemeColorPicker = ["#FAFAFA", "#121212"]
-    static let blockColor: ThemeColorPicker = ["#FAFAFA", "#292929"]
-    static let subBackgroundColor: ThemeColorPicker = ["#FFFFFF", "#292929"]
-    static let navigationColor: ThemeColorPicker = ["#FFFFFF", "#121212"]
-    static let textColor: ThemeColorPicker = ["#393939", "#FFFFFF"]
-    static let subTextColor: ThemeColorPicker = ["#5F524C", "#FFFFFF"]
-    static let separatorColor: ThemeColorPicker = ["#EEEEEE", "#37313E"]
-    static let greyTextColor: ThemeColorPicker = ["#999999", "#FAFAFA"]
-    static let bankCardColor: ThemeColorPicker = ["#EEEEEE", "#292929"]
+    public static let backgroundColor: ThemeColorPicker = ["#FAFAFA", "#121212"]
+    public static let blockColor: ThemeColorPicker = ["#FAFAFA", "#292929"]
+    public static let subBackgroundColor: ThemeColorPicker = ["#FFFFFF", "#292929"]
+    public static let navigationColor: ThemeColorPicker = ["#FFFFFF", "#121212"]
+    public static let textColor: ThemeColorPicker = ["#393939", "#FFFFFF"]
+    public static let subTextColor: ThemeColorPicker = ["#5F524C", "#FFFFFF"]
+    public static let separatorColor: ThemeColorPicker = ["#EEEEEE", "#37313E"]
+    public static let greyTextColor: ThemeColorPicker = ["#999999", "#FAFAFA"]
+    public static let bankCardColor: ThemeColorPicker = ["#EEEEEE", "#292929"]
 }
