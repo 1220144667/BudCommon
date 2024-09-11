@@ -6,12 +6,12 @@
 //
 
 import Foundation
+import Logging
 import PromiseKit
 import UIKit
-import Logging
 
 // 打印行...
-func dlog<T>(message: T, file: String = #file, function: String = #function, lineNumber: Int = #line) {
+public func dlog<T>(message: T, file: String = #file, function: String = #function, lineNumber: Int = #line) {
     if !Bud.isDebug {
         return
     }
@@ -31,7 +31,7 @@ public enum Bud {
             return false
         #endif
     }
-    
+
     static var keyWindow: UIWindow?
 
     /// 获取国际化文字
