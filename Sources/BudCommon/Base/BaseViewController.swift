@@ -8,8 +8,7 @@
 import SwiftTheme
 import UIKit
 
-public class BaseViewController<Container: UIView>: UIViewController, RequestExpiresable {
-    
+open class BaseViewController<Container: UIView>: UIViewController, RequestExpiresable {
     // ----------- 容器View -----------
     public var container: Container { view as! Container }
 
@@ -19,13 +18,13 @@ public class BaseViewController<Container: UIView>: UIViewController, RequestExp
     // ----------- 返回事件闭包、如果实现此闭包则需要手动调用pop函数 -----------
     public var backClosure: (() -> Void)?
 
-    public override func loadView() {
+    override public func loadView() {
         super.loadView()
         if view is Container { return }
         view = Container(frame: UIScreen.main.bounds)
     }
 
-    public override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
         // 设置背景色
         view.theme_backgroundColor = BudColor.backgroundColor
@@ -61,7 +60,7 @@ public class BaseViewController<Container: UIView>: UIViewController, RequestExp
     public func loadData() {}
 
     // ----------- view点击事件 -----------
-    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.container.endEditing(true)
     }
