@@ -13,7 +13,7 @@ import UIKit
 private let lastThemeIndexKey = "lastedThemeIndex"
 private let defaults = UserDefaults.standard
 
-enum BudThemes: Int {
+public enum BudThemes: Int {
     case day = 0
     case night = 1
 
@@ -63,7 +63,7 @@ enum BudThemes: Int {
     }
 }
 
-enum BudColor {
+public enum BudColor {
     static let backgroundColor: ThemeColorPicker = ["#FAFAFA", "#121212"]
     static let blockColor: ThemeColorPicker = ["#FAFAFA", "#292929"]
     static let subBackgroundColor: ThemeColorPicker = ["#FFFFFF", "#292929"]
