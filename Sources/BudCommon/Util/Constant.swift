@@ -21,8 +21,7 @@ let mobile_key = "com.budchat.mobile.key"
 let user_id_key = "com.budchat.user.id"
 let guide_show_key = "com.budchat.guide.show"
 
-extension URL {
-    
+public extension URL {
     static func getAgreementString() -> String {
         let urlString = RequestProvider.shared.environment.host
         let mode = (BudThemes.current() == .night) ? "_dark" : ""
@@ -35,5 +34,3 @@ extension URL {
         return urlString + "/budchatenduserlicenseagreement\(mode).html"
     }
 }
-
-

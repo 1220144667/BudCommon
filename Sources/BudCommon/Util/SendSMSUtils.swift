@@ -9,7 +9,7 @@
 import Foundation
 import MessageUI
 
-class SendSMSUtils: NSObject, MFMessageComposeViewControllerDelegate {
+open class SendSMSUtils: NSObject, MFMessageComposeViewControllerDelegate {
     private static var `default`: SendSMSUtils?
 
     public static var sharedInstance: SendSMSUtils {
@@ -26,12 +26,12 @@ class SendSMSUtils: NSObject, MFMessageComposeViewControllerDelegate {
     }
 
     /*
-     // 显示姓名
-     var name = recipient.name
-     if name.isEmpty {
-         name = recipient.mobileArray.first ?? ""
-     }
-    */
+      // 显示姓名
+      var name = recipient.name
+      if name.isEmpty {
+          name = recipient.mobileArray.first ?? ""
+      }
+     */
     private func configuredMessageComposeViewController(name: String?, phone: String) -> MFMessageComposeViewController {
         let n = (name == nil) ? phone : name!
         let url = "https://apps.apple.com/us/app/budchat/id6464466941"
@@ -44,14 +44,15 @@ class SendSMSUtils: NSObject, MFMessageComposeViewControllerDelegate {
 
     func sendSMS(name: String?,
                  phone: String,
-                 presentVC: UIViewController) {
+                 presentVC: UIViewController)
+    {
         if canSendText() {
             let messageVC = configuredMessageComposeViewController(name: name, phone: phone)
             presentVC.present(messageVC, animated: true, completion: nil)
         }
     }
 
-    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+    public func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         controller.dismiss(animated: true) {
             var toastMsg = ""
             switch result {

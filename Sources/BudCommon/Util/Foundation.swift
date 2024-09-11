@@ -107,7 +107,7 @@ public enum Bud {
 }
 
 // 快捷获取主队列以及单次执行
-extension DispatchQueue {
+public extension DispatchQueue {
     // once
     private static var onceTokens = [String]()
     class func once(_ token: String, block: () -> Void) {
@@ -135,7 +135,7 @@ extension DispatchQueue {
 }
 
 // json解析
-extension Bud {
+public extension Bud {
     // JSON解析为模型
     static func jsonToModel<T: Codable>(_ modelType: T.Type, _ response: Data) -> T? {
         var modelObject: T?
@@ -261,7 +261,7 @@ public extension Bud {
     }
 }
 
-extension UITextField {
+public extension UITextField {
     // 获取 NSAttributedString
     func placeholder(_ text: String, _ color: UIColor) {
         let attributes = [NSAttributedString.Key.foregroundColor: color]
