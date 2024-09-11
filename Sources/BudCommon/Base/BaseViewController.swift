@@ -10,21 +10,21 @@ import UIKit
 
 open class BaseViewController<Container: UIView>: UIViewController, RequestExpiresable {
     // ----------- 容器View -----------
-    public var container: Container { view as! Container }
+    open var container: Container { view as! Container }
 
     // ----------- 是否隐藏NavigationBar -----------
-    public var hidenNavigationBar = false
+    open var hidenNavigationBar = false
 
     // ----------- 返回事件闭包、如果实现此闭包则需要手动调用pop函数 -----------
-    public var backClosure: (() -> Void)?
+    open var backClosure: (() -> Void)?
 
-    override public func loadView() {
+    override open func loadView() {
         super.loadView()
         if view is Container { return }
         view = Container(frame: UIScreen.main.bounds)
     }
 
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         // 设置背景色
         view.theme_backgroundColor = BudColor.backgroundColor
@@ -57,10 +57,10 @@ open class BaseViewController<Container: UIView>: UIViewController, RequestExpir
     }
 
     // ----------- 加载数据 -----------
-    public func loadData() {}
+    open func loadData() {}
 
     // ----------- view点击事件 -----------
-    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.container.endEditing(true)
     }

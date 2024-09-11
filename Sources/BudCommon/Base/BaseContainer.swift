@@ -18,5 +18,5 @@ open class BaseContainer: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func commonInit() {}
+    open func commonInit() {}
 }
