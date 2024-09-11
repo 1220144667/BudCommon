@@ -6,12 +6,12 @@
 //
 
 import AdSupport
-import UIKit
-import Toast
 import ProgressHUD
+import Toast
+import UIKit
 
-extension Bud {
-    public static var uuid: String {
+public extension Bud {
+    static var uuid: String {
         return ASIdentifierManager.shared().advertisingIdentifier.uuidString
     }
 
@@ -45,7 +45,7 @@ extension Bud {
     }
 }
 
-extension Bud {
+public extension Bud {
     static let theme = UIColor.red
     // 展示顶部弹出的提示
     static func bannerHUD(title: String, message: String, delay: TimeInterval = 2) {
